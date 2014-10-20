@@ -1,0 +1,25 @@
+# This is an example $REPO/.git/config file
+# You can copy-paste from this into your .git/config file.
+# You can verify your configuration with "git config --get-regexp user.*"
+# to make sure you've got it in the right place and working.
+[user]
+	# These MUST match the credentials you have in gerrit.
+	email = gregbillock@gmail.com
+	name = Greg Billock
+
+[remote "origin"]
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	url = ssh://gerrit/template.git
+
+# Configuring the remote for gerrit code review enables
+# you to type "git push review" to send a branch to gerrit
+# for review.
+[remote "review"]
+	pushurl = ssh://gerrit/template
+	push = HEAD:refs/for/master
+
+# Configuring an origin for the master branch enables you to
+# do "git pull" in the master.
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master

@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
+<!-- above set at the top of the file will set     -->
+<!-- the browser's rendering engine into           -->
+<!-- "Quirks Mode". Replacing this declaration     -->
+<!-- with a "Standards Mode" doctype is supported, -->
+<!-- but may lead to some differences in layout.   -->
+
+<html ng-app="Notes">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Note Taker</title>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+  <script src="editable-div.js"></script>
+  <script src="note-controller.js"></script>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+<h2> Note Taker V.1 </h2>
+<div ng-controller="NoteController">
+  <textarea placeholder="Type new note here" ng-model="new_note"></textarea>
+  <button type="button" ng-click="addNote()"> Add </button>
+  <div ng-repeat="note in notes">
+    <editable-div ng-model="note.text"></editable-div>
+    <button type="button" ng-click="deleteNote(note.id)"> Delete </button>
+    <button type="button" ng-click="in_edit_mode =true;"> Edit </button>
+    <p>
+  </div>
+</div>
+</body>
+</html>

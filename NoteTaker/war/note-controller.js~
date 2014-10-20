@@ -1,0 +1,117 @@
+function NoteController($scope) {
+  $scope.notes = []; //list that will store the current notes
+  
+  // adds a note to $scope.notes, storing the text and id.
+  $scope.addNote = function() {
+    var currentIndex = $scope.notes.length + 1;
+    $scope.notes.push({text: $scope.new_note, id:currentIndex});;
+    $scope.new_note = '';
+  };
+
+  var $rows = $scope.notes;
+  $('#search').keyup(function() {
+      var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+      
+      $rows.show().filter(function() {
+          var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+          return !~text.indexOf(val);
+      }).hide();
+  });
+  
+  // adds a note to $scope.notes, storing the text and id.
+  $scope.addNote = function() {
+    var currentIndex = $scope.notes.length + 1;
+   // if (&scope.new_note == '') {
+   // 	&scope.new_note = '{empty}'
+    //}
+    $scope.notes.push({text: $scope.new_note, id:currentIndex});
+    $scope.new_note = '';
+  };
+  
+  // Filters out notes from $scope.notes that do not have the input text
+  $scope.filterNotes = function() {
+    var oldNotes = $scope.notes;
+    $scope.notes = [];
+
+    alert($scope.filter)
+    angular.forEach(oldNotes, function (note) {
+        if (note.text.indexOf($scope.filter) != -1) 
+          $scope.notes.push(note);
+      });
+  };
+
+  // delete the note with the input id from $scope.notes
+  $scope.deleteNote = function (id) {
+    var oldNotes = $scope.notes;
+    $scope.notes = [];
+
+    angular.forEach(oldNotes, function (note) {
+      if (note.id !== id) 
+        $scope.notes.push(note);
+    });
+  }
+  
+  // Array Insert Method
+  Array.prototype.insert = function (index, item) {
+	  this.splice(index, 0, item);
+	};
+  
+  // Array Remove Method
+  Array.prototype.remove = function(from, to) {
+    var rest = this.slice((to || from) + 1 || this.length);
+    this.length = from < 0 ? this.length + from : from;
+    return this.push.apply(this, rest);
+  };
+  
+  // Push the input note to the beginning of $scope.notes
+  $scope.pushNoteToTop = function (note) {
+	  var oldNote = note;
+	  $scope.notes.unshift(oldNote);
+	  }
+  
+  // Push the input note to the end of $scope.notes
+  $scope.pushNoteToBottom = function (note) {
+	  var oldNote = note;
+	  $scope.notes.push(oldNote);
+	  }
+  
+  // Push the input note one position forward in $scope.notes
+  $scope.pushNoteUp = function (note) {
+	  var oldNote = note;
+	  var myIndex = $scope.notes.indexOf(note);
+	  if (myIndex == 0){
+		  alert("I'm already your highest priority!")
+	  } else {
+		  $scope.notes.insert(myIndex - 1, oldNote);
+		  $scope.notes.remove(myIndex + 1);
+	  }
+	  }
+  
+  // Push the input note one position down in $scope.notes
+  $scope.pushNoteDown = function (note) {
+	  var oldNote = note;
+	  var myIndex = $scope.notes.indexOf(note);
+	  if (myIndex == ($scope.notes.length - 1)){
+		  alert("I'm already your lowest priority!")
+	  } else {
+		  $scope.notes.remove(myIndex);
+		  $scope.notes.insert(myIndex + 1, oldNote);
+	  }
+	  }
+  
+  // delete all notes $scope.notes
+  $scope.deleteAllNotes = function () {
+    var oldNotes = $scope.notes; // store old notes, possibly for use later?
+    if (oldNotes.length == 0) {
+    	alert("You don't have any notes to delete, silly!")
+    } else {
+        var result = confirm("Are you sure you want to delete ALL your notes?");
+        if (result==true) {
+            $scope.notes = [];
+        } else {
+        	$scope.notes = oldNotes;
+        }
+    }
+
+  }
+}

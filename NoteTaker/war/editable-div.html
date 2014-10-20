@@ -1,0 +1,6 @@
+<!-- preview mode -->
+<div ng-hide="in_edit_mode" ng-click="in_edit_mode =true;">{{model}}</div>
+
+<!-- edit mode -->
+<textarea ng-model="model" ng-show="in_edit_mode"></textarea>
+<input type="submit" value="Save" ng-show="in_edit_mode" ng-click="in_edit_mode = false;">

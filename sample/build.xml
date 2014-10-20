@@ -1,0 +1,39 @@
+<project name="sample" basedir=".">
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="checkstyle.dir" location="../analysis"/>
+
+  <target name="init">
+    <mkdir dir="${build}"/>
+    <mkdir dir="${build}/classes"/>
+  </target>
+
+  <target name="checkstyle">
+    <taskdef resource="checkstyletask.properties">
+      <classpath>
+        <pathelement path="${checkstyle.dir}/bin/checkstyle-5.5-all.jar"/>
+      </classpath>
+    </taskdef>
+
+    <checkstyle config="${checkstyle.dir}/android_checks.xml">
+      <fileset dir="${src}" includes="**/*.java"/>
+      <formatter type="plain"/>
+    </checkstyle>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${src}" destdir="${build}/classes"
+           includeAntRuntime="false">
+    </javac>
+  </target>
+
+  <target name="run">
+    <java classname="Sample" classpath="${build}/classes">
+    </java>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build}" includeEmptyDirs="true">
+    </delete>
+  </target>
+</project>

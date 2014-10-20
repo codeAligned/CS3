@@ -1,0 +1,13 @@
+# This block (after editing in the right information)
+# should go in your ~/.ssh/config file.
+# Your identity must be the one you registered with gerrit.
+# You can test your setup by running "ssh gerrit gerrit ls-projects"
+# You should see a list of projects in the system.
+Host gerrit
+	Hostname cs3.cms.caltech.edu
+	Port 5550
+	# The username must match the user registered with gerrit.
+	User gregbillock
+	# If you have more than one identity file, this must be
+	# the private key you generated with ssh-keygen.
+	# IdentityFile gerrit_identity.rsa
